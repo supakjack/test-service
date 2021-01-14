@@ -5,6 +5,8 @@ const path = require('path')
 const createError = require('http-errors')
 const cors = require('cors')
 require('dotenv').config()
+const bodyParser = require('body-parser')
+mysql = require('mysql')
 
 const testRoute = require('./routers/test.router')
 
@@ -14,6 +16,15 @@ const accessLogStream = fs.createWriteStream(
   path.join(__dirname, './logs/access.log'),
   { flags: 'a' }
 )
+
+
+// Connect Database config in .env file
+db = mysql.createConnection({
+  host: process.env.HOST,
+  user: process.env.user,
+  password: process.env.password,
+  database: process.env.database
+})
 
 app.use(cors({ origin: false }))
 app.use(morgan('combined', { stream: accessLogStream }))
@@ -36,6 +47,13 @@ app.use((err, req, res, next) => {
     }
   })
 })
+
+app.use(bodyParser.json())
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+)
 
 const PORT = process.env.PORT || 3000
 
