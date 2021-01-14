@@ -21,13 +21,12 @@ module.exports = {
     var jsonData = {};
     jsonData.tagName = req.body.tagName;
     jsonData.tagStatus = req.body.tagStatus;
-    jsonData.tagCreateDate = "1/14/2021";
-    jsonData.tagUpdateDate = "1/14/2021";
+
     jsonData.tagCreateBy = 1;
     jsonData.tagUpdateBy = 1;
 
     try {
-      let sql = `INSERT INTO tags(tagName, tagStatus, tagCreateDate, tagUpdateDate, tagCreateBy, tagUpdateBy) VALUES ("${req.body.tagName}","${req.body.tagStatus}",${jsonData.tagCreateDate},${jsonData.tagUpdateDate},${jsonData.tagCreateBy},${jsonData.tagUpdateBy})`;
+      let sql = `INSERT INTO tags(tagName, tagStatus, tagCreateBy, tagUpdateBy) VALUES ("${req.body.tagName}","${req.body.tagStatus}",${jsonData.tagCreateBy},${jsonData.tagUpdateBy})`;
       db.query(sql, function (err, data, fields) {
         if (err) throw err;
         res.json({
