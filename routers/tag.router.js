@@ -12,7 +12,7 @@ router.get("/api/:tagCreateBy/update/:tagId", testController.update);
 router.delete("/api/:tagCreateBy/delete/:tagId", testController.delete);
 
 // Get all tag by tagCreateBy
-router.get("/api/:tagCreateBy/getAll/", testController.getAllById);
+router.get("/api/:tagCreateBy/getAll/", testController.getAlltagById);
 
 // Get all tags
 router.get("/api/getAll/", testController.getAll);

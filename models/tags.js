@@ -2,14 +2,16 @@ const knex = require("./../helpers/init_knex");
 const createError = require("http-errors");
 
 module.exports = {
-  // function name: createtag
+  // function name: createTag
   // description: create tag model API
   // input: tagName, tagStatus, tagCreateBy, tagUpdateBy
   // output: tagId
   // CreateBy: Niphitphon Thanatkulkit / CreateDate: 15/1/2021
-  // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 15/1/2121
+  // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2121
   createTag: async (data) => {
     return new Promise((resolve, reject) => {
+      // try to create insert SQL query into tags table with tagname,
+      // tagStatus, tagCreateBy and tagUpdate then catch if error
       try {
         const doseCreateTag = knex
           .insert(
@@ -40,6 +42,7 @@ module.exports = {
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 18/1/2121
   getAlltag: async () => {
     return new Promise((resolve, reject) => {
+      // try to select * from tagsfrom tags table then catch if error
       try {
         const doseGetAllTag = knex.select().from("tags").timeout(1000);
         resolve(doseGetAllTag);
@@ -58,6 +61,7 @@ module.exports = {
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2121
   getAlltagById: async (data) => {
     return new Promise((resolve, reject) => {
+      // try to select * from tags from tags table where tagcreateBy = ? then catch if error
       try {
         const doseGetAllTagById = knex("tags").where(
           "tagCreateBy",

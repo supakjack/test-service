@@ -29,7 +29,7 @@ module.exports = {
     }
   },
 
-  // function name: update_tag
+  // function name: update
   // desxription: update tag by API from tagId
   // input: tagId
   // output: text response
@@ -52,12 +52,17 @@ module.exports = {
   // CreateBy: Niphitphon Thanatkulkit / CreateDate: 14/1/2021
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2021
   delete: async (req, res, next) => {
+    // define variable json as object
     var jsonData = {};
+
+    // passing data to json variable
     jsonData.tagId = req.params.tagId;
     jsonData.tagCreateBy = req.params.tagCreateBy;
+
+    // try call function deleteTag in tags model then catch if error
     try {
       const doseDelete = await tagsModel.deleteTag(jsonData);
-      res.status(201).send({ doseDelete });
+      res.status(200).send({ doseDelete });
     } catch (error) {
       if (error.isJoi === true) return next(createError.InternalServerError());
       next(error);
@@ -71,9 +76,10 @@ module.exports = {
   // CreateBy: Niphitphon Thanatkulkit / CreateDate: 14/1/2021
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2021
   getAll: async (req, res, next) => {
+    // try call function getAlltag in tags model then catch if error
     try {
       const doseGetAll = await tagsModel.getAlltag();
-      res.status(201).send({ doseGetAll });
+      res.status(200).send({ doseGetAll });
     } catch (error) {
       if (error.isJoi === true) return next(createError.InternalServerError());
       next(error);
@@ -82,14 +88,19 @@ module.exports = {
 
   // function name: getTag
   // description: get single tag
-  // input : id
-  // output : all tag in database
+  // input : tagId
+  // output : tagId, tagName, tagStatus, tagCreateDate, tagUpdateDate, tagCreateBy, tagUpdateBy
   // CreateBy: Niphitphon Thanatkulkit / CreateDate: 14/1/2021
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2021
   getTag: async (req, res, next) => {
+    // define variable json as object
     var jsonData = {};
+
+    // passing data to json variable
     jsonData.tagId = req.params.tagId;
     jsonData.tagCreateBy = req.params.tagCreateBy;
+
+    // try call function getTagById in tags model then catch if error
     try {
       const doseGetAll = await tagsModel.getTagById(jsonData);
       res.status(201).send({ doseGetAll });
@@ -101,16 +112,19 @@ module.exports = {
 
   // function name: getAllById
   // description: get all tag by tagCreateBy
-  // input : -
-  // output : all tag in database
+  // input : tagCreateBy
+  // output : all tag create by tagCreateBy
   // CreateBy: Niphitphon Thanatkulkit / CreateDate: 14/1/2021
   // UpdateBy: Niphitphon Thanatkulkit / UpdateDate: 19/1/2021
-  getAllById: async (req, res, next) => {
-    var jsondata = {};
-    jsondata.tagCreateBy = req.params.tagCreateBy;
-    // res.status(200).send({ jsondata });
+  getAlltagById: async (req, res, next) => {
+    // define variable json as object
+    var jsonData = {};
+
+    // passing data to json variable
+    jsonData.tagCreateBy = req.params.tagCreateBy;
+    // try call function getAlltagById in tags model then catch if error
     try {
-      const doseGetAllById = await tagsModel.getAlltagById(jsondata);
+      const doseGetAllById = await tagsModel.getAlltagById(jsonData);
       res.status(200).send({ doseGetAllById });
     } catch (error) {
       if (error.isJoi === true) return next(createError.InternalServerError());
